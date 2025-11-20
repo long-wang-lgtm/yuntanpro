@@ -132,6 +132,21 @@ const HomePage: React.FC = () => {
             </Col>
           </Row>
 
+          {/* 开始测试按钮 */}
+          <Row justify="center" style={{ marginBottom: 30 }}>
+            <Col xs={24} sm={12} md={8} style={{ textAlign: 'center' }}>
+              <Button
+                type="primary"
+                size="large"
+                icon={<PlayCircleOutlined />}
+                onClick={() => setShowCodeModal(true)}
+                style={{ padding: '12px 48px', fontSize: '18px' }}
+              >
+                开始测试
+              </Button>
+            </Col>
+          </Row>
+
           {/* 测试流程简介 */}
           <Row justify="center" style={{ marginBottom: 10 }}>
             <Col xs={24} md={20} lg={16}>
@@ -168,21 +183,6 @@ const HomePage: React.FC = () => {
                   </Col>
                 </Row>
               </div>
-            </Col>
-          </Row>
-
-          {/* 开始测试按钮 */}
-          <Row justify="center" style={{ marginBottom: 10 }}>
-            <Col xs={24} sm={12} md={8} style={{ textAlign: 'center' }}>
-              <Button
-                type="primary"
-                size="large"
-                icon={<PlayCircleOutlined />}
-                onClick={() => setShowCodeModal(true)}
-                style={{ padding: '12px 48px', fontSize: '18px' }}
-              >
-                开始测试
-              </Button>
             </Col>
           </Row>
 
