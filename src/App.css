@@ -1,0 +1,15 @@
+.app-layout {
+  min-height: 100vh;
+}
+
+.app-layout .ant-layout-content {
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .app-layout .ant-layout-content {
+    padding: 0 16px;
+  }
+}

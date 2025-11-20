@@ -1,0 +1,251 @@
+.test-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #2d3748 100%);
+  padding: 40px 20px;
+}
+
+.test-header {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.test-title {
+  color: #e8e6e3 !important;
+  margin-bottom: 30px !important;
+  font-size: 2.5rem !important;
+  background: linear-gradient(135deg, #e53e3e 0%, #fa8c16 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.test-steps {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.test-steps .ant-steps-item-title {
+  color: #e8e6e3 !important;
+}
+
+.test-steps .ant-steps-item-description {
+  color: #a0aec0 !important;
+}
+
+.test-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.test-card {
+  background: rgba(26, 31, 46, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 62, 62, 0.3) !important;
+  border-radius: 16px !important;
+  padding: 24px;
+}
+
+.progress-section {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.progress-section .ant-progress-line {
+  margin-top: 8px;
+}
+
+.question-title {
+  color: #e8e6e3 !important;
+  text-align: center !important;
+  margin-bottom: 32px !important;
+  font-size: 1.3rem !important;
+  line-height: 1.6 !important;
+}
+
+.options-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.option-button {
+  height: auto !important;
+  min-height: 50px !important;
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+  border: 1px solid #4a5568 !important;
+  background: #2d3748 !important;
+  color: #e8e6e3 !important;
+  transition: all 0.3s ease !important;
+  text-align: center !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+.option-button:hover {
+  border-color: #e53e3e !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.option-button.ant-btn-primary {
+  background: #e53e3e !important;
+  border-color: #e53e3e !important;
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+/* 表单样式 */
+.test-card .ant-form-item-label > label {
+  color: #e8e6e3 !important;
+}
+
+.test-card .ant-radio-wrapper,
+.test-card .ant-checkbox-wrapper {
+  color: #e8e6e3 !important;
+  padding: 8px 0;
+}
+
+.test-card .ant-radio-inner,
+.test-card .ant-checkbox-inner {
+  background: #2d3748 !important;
+  border-color: #4a5568 !important;
+}
+
+.test-card .ant-radio-checked .ant-radio-inner,
+.test-card .ant-checkbox-checked .ant-checkbox-inner {
+  background: #e53e3e !important;
+  border-color: #e53e3e !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .test-container {
+    padding: 20px 16px;
+  }
+  
+  .test-title {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .test-card {
+    padding: 20px 16px;
+  }
+  
+  .question-title {
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 24px !important;
+  }
+  
+  .option-button {
+    min-height: 48px !important;
+    padding: 12px 16px !important;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+  .navigation-buttons .ant-btn {
+    width: 100%;
+    min-height: 44px;
+    font-size: 1rem;
+  }
+  
+  .progress-section {
+    margin-bottom: 20px;
+  }
+  
+  .options-grid {
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .test-container {
+    padding: 16px 12px;
+  }
+  
+  .test-title {
+    font-size: 1.8rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .test-steps .ant-steps-item-title {
+    font-size: 0.8rem !important;
+  }
+  
+  .test-steps .ant-steps-item-description {
+    display: none;
+  }
+  
+  .question-title {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .option-button {
+    min-height: 52px !important;
+    padding: 14px 12px !important;
+    font-size: 0.95rem !important;
+  }
+  
+  /* 移动端触摸优化 */
+  .option-button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  .ant-btn:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* 移动端安全区域适配 */
+@supports(padding: max(0px)) {
+  .test-container {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* 防止移动端缩放 */
+.test-card input, .test-card select, .test-card textarea {
+  font-size: 16px !important;
+}
+
+/* 移动端滚动优化 */
+.test-container {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 移动端表单优化 */
+.test-card .ant-radio-wrapper,
+.test-card .ant-checkbox-wrapper {
+  padding: 12px 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.test-card .ant-radio,
+.test-card .ant-checkbox {
+  transform: scale(1.2);
+  margin-right: 12px;
+}

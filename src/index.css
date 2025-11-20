@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0f1419;
+  color: #e8e6e3;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1f2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a4458;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a5568;
+}
+
+/* 深色主题适配 */
+.ant-layout {
+  background: #0f1419 !important;
+}
+
+.ant-card {
+  background: #1a1f2e !important;
+  border: 1px solid #2d3748 !important;
+}
+
+.ant-card .ant-card-head {
+  border-bottom: 1px solid #2d3748 !important;
+  color: #e8e6e3 !important;
+}
+
+.ant-input, .ant-select-selector, .ant-btn {
+  background: #2d3748 !important;
+  border: 1px solid #4a5568 !important;
+  color: #e8e6e3 !important;
+}
+
+.ant-input::placeholder, .ant-select-selection-placeholder {
+  color: #a0aec0 !important;
+}
+
+.ant-btn-primary {
+  background: #e53e3e !important;
+  border-color: #e53e3e !important;
+}
+
+.ant-btn-primary:hover {
+  background: #c53030 !important;
+  border-color: #c53030 !important;
+}
+
+.ant-progress-text {
+  color: #e8e6e3 !important;
+}
