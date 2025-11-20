@@ -10,6 +10,7 @@
 /* 响应式设计 */
 @media (max-width: 768px) {
   .app-layout .ant-layout-content {
-    padding: 0 16px;
+    padding: 0 0px;
+    /* background-color: #ECF4F7; */
   }
 }

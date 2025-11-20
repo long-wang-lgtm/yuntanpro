@@ -10,7 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #0f1419;
+  background: #E4EBF4;
   color: #e8e6e3;
   min-height: 100vh;
 }
@@ -37,9 +37,9 @@ body {
   background: #4a5568;
 }
 
-/* 深色主题适配 */
+/* 浅色主题适配 */
 .ant-layout {
-  background: #0f1419 !important;
+  background: #ebecec !important;
 }
 
 .ant-card {
@@ -52,23 +52,29 @@ body {
   color: #e8e6e3 !important;
 }
 
-.ant-input, .ant-select-selector, .ant-btn {
-  background: #2d3748 !important;
-  border: 1px solid #4a5568 !important;
-  color: #e8e6e3 !important;
-}
-
-.ant-input::placeholder, .ant-select-selection-placeholder {
+.ant-input::placeholder{
   color: #a0aec0 !important;
 }
 
+.ant-btn {
+  background: #FFFFFF ;
+  border: 1px solid #a8acb1 ;
+  color: #e8e6e3 ;
+}
+
+.ant-btn-default {
+  background: #FFFFFF ;
+  color: #000000 ;
+}
+
 .ant-btn-primary {
-  background: #e53e3e !important;
-  border-color: #e53e3e !important;
+  background: #e53e3e ;
+  border-color: #e53e3e ;
+  color: #f8f7f4 ;
 }
 
 .ant-btn-primary:hover {
-  background: #c53030 !important;
+  background: #c53030 ;
   border-color: #c53030 !important;
 }
 

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { TestReport, BaseInfoAnswers, QuestionAnswers, RiskLevel } from '@/types'
 import { dimensions } from '@/data/questions'
-import { saveSecureReport, getSecureReports, deleteSecureReport, checkDeviceLimit, clearAllSecureData } from '@/utils/encryption'
+import { saveSecureReport, getSecureReports, deleteSecureReport, clearAllSecureData } from '@/utils/encryption'
 
 interface TestState {
   // 测试码状态
@@ -34,9 +34,6 @@ interface TestState {
   deleteReport: (reportId: string) => void
   clearCurrentTest: () => void
   setCurrentReport: (report: TestReport | null) => void
-  
-  // 设备限制检查
-  checkDeviceLimit: () => boolean
   
   // 安全存储操作
   loadSecureReports: () => void
@@ -283,11 +280,6 @@ const useTestStore = create<TestState>()(
           currentQuestionIndex: 0,
           currentReport: null
         })
-      },
-
-      // 检查设备限制
-      checkDeviceLimit: () => {
-        return checkDeviceLimit()
       },
 
       // 加载安全存储的报告

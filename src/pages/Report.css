@@ -1,6 +1,6 @@
 .report-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #2d3748 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
   padding: 40px 20px;
 }
 
@@ -15,10 +15,10 @@
 }
 
 .report-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   margin: 0 !important;
   font-size: 2.5rem !important;
-  background: linear-gradient(135deg, #e53e3e 0%, #fa8c16 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -27,12 +27,12 @@
 }
 
 .back-button {
-  border-color: #e53e3e !important;
-  color: #e53e3e !important;
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
 }
 
 .back-button:hover {
-  background: #e53e3e !important;
+  background: #3b82f6 !important;
   color: #fff !important;
 }
 
@@ -47,11 +47,12 @@
 }
 
 .overall-risk-card {
-  background: rgba(26, 31, 46, 0.9) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(229, 62, 62, 0.3) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
   border-radius: 16px !important;
   margin-bottom: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .overall-risk-card .ant-card-body {
@@ -69,7 +70,7 @@
 }
 
 .risk-summary {
-  color: #a0aec0 !important;
+  color: #64748b !important;
   font-size: 1rem !important;
   line-height: 1.6 !important;
   margin: 0 !important;
@@ -84,17 +85,17 @@
 .risk-analysis-alert .ant-alert-message {
   font-size: 1.1rem !important;
   font-weight: 600 !important;
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
 }
 
 .risk-analysis-alert .ant-alert-description {
-  color: #a0aec0 !important;
+  color: #64748b !important;
   line-height: 1.6 !important;
   font-size: 1rem !important;
 }
 
 .dimensions-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   text-align: center !important;
   margin-bottom: 24px !important;
 }
@@ -107,16 +108,17 @@
 }
 
 .dimension-card {
-  background: rgba(45, 55, 72, 0.7) !important;
-  border: 1px solid #4a5568 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #cbd5e1 !important;
   border-radius: 12px !important;
   transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .dimension-card:hover {
-  border-color: #e53e3e !important;
+  border-color: #3b82f6 !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(229, 62, 62, 0.2);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
 }
 
 .dimension-header {
@@ -127,7 +129,7 @@
 }
 
 .dimension-name {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   font-size: 1.1rem !important;
 }
 
@@ -138,30 +140,32 @@
 .dimension-description {
   font-size: 0.9rem !important;
   line-height: 1.4 !important;
+  color: #64748b !important;
 }
 
 .info-card,
 .recommendation-card {
-  background: rgba(26, 31, 46, 0.9) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(229, 62, 62, 0.3) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
   border-radius: 16px !important;
   margin-bottom: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .info-card .ant-card-head,
 .recommendation-card .ant-card-head {
-  border-bottom: 1px solid rgba(229, 62, 62, 0.3) !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
 }
 
 .info-card .ant-card-head-title,
 .recommendation-card .ant-card-head-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   font-size: 1.2rem !important;
 }
 
 .info-card .ant-card-body {
-  color: #a0aec0 !important;
+  color: #64748b !important;
 }
 
 .action-buttons {

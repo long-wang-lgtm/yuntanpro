@@ -83,6 +83,30 @@ const ReportPage: React.FC = () => {
     })
   }
 
+  // 删除报告
+  const handleDeleteReport = (report: any) => {
+    Modal.confirm({
+      title: '确认删除',
+      content: `确定要删除"${report.reportName}"报告吗？此操作不可恢复。`,
+      okText: '确认删除',
+      cancelText: '取消',
+      okType: 'danger',
+      onOk: async () => {
+        try {
+          const { deleteReport } = useTestStore.getState()
+          deleteReport(report.id)
+          message.success('报告删除成功')
+          
+          // 重新加载历史报告
+          const { reports: latestReports } = useTestStore.getState()
+          setHistoryReports(latestReports)
+        } catch (error) {
+          message.error('删除失败，请重试')
+        }
+      }
+    })
+  }
+
   // 处理查看历史报告
   const handleViewHistory = () => {
     if (historyReports.length === 0) {
@@ -116,6 +140,14 @@ const ReportPage: React.FC = () => {
                     icon={<FileTextOutlined />}
                   >
                     查看详情
+                  </Button>,
+                  <Button 
+                    type="link" 
+                    danger
+                    onClick={() => handleDeleteReport(report)}
+                    icon={<DeleteOutlined />}
+                  >
+                    删除
                   </Button>
                 ]}
               >
@@ -213,7 +245,7 @@ const ReportPage: React.FC = () => {
           风险评估报告
         </Title>
         
-        <div className="report-actions">
+        {/* <div className="report-actions">
           <Button icon={<DownloadOutlined />} onClick={handleDownload}>
             下载报告
           </Button>
@@ -225,7 +257,7 @@ const ReportPage: React.FC = () => {
               更多
             </Button>
           </Dropdown>
-        </div>
+        </div> */}
       </div>
 
       <div className="report-content">

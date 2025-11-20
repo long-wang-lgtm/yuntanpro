@@ -1,8 +1,24 @@
-// 测试码验证函数（始终返回成功）
+// 测试码验证函数
 export const validateTestCode = (code: string): Promise<boolean> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // 模拟验证过程，但始终返回成功
+      // 验证条件1: 长度必须为8位
+      if (code.length !== 8) {
+        reject(new Error('测试码不存在，请联系客服！'))
+        return
+      }
+      
+      // 验证条件2: 至少包含一个大写字母、一个小写字母、一个数字
+      const hasUpperCase = /[A-Z]/.test(code)
+      const hasLowerCase = /[a-z]/.test(code)
+      const hasNumber = /[0-9]/.test(code)
+      
+      if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+        reject(new Error('测试码不存在，请联系客服！'))
+        return
+      }
+      
+      // 验证通过，保存测试码
       localStorage.setItem('validatedCode', code)
       resolve(true)
     }, 1000) // 1秒延迟模拟网络请求
@@ -24,24 +40,4 @@ export const generateDeviceFingerprint = (): string => {
   const navigatorInfo = navigator.userAgent + navigator.language
   const screenInfo = screen.width + 'x' + screen.height
   return btoa(navigatorInfo + screenInfo).substring(0, 16)
-}
-
-// 检查单设备单码限制
-export const checkDeviceCodeLimit = (code: string): boolean => {
-  const deviceFingerprint = generateDeviceFingerprint()
-  const storedCode = localStorage.getItem('validatedCode')
-  const storedFingerprint = localStorage.getItem('deviceFingerprint')
-  
-  // 如果是新设备或新代码，允许验证
-  if (!storedCode || !storedFingerprint) {
-    localStorage.setItem('deviceFingerprint', deviceFingerprint)
-    return true
-  }
-  
-  // 检查是否同一设备使用不同代码
-  if (storedFingerprint === deviceFingerprint && storedCode !== code) {
-    return false
-  }
-  
-  return true
 }

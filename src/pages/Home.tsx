@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Button, Input, message, Space, Typography, Row, Col, Modal, FloatButton, List, Tag } from 'antd'
-import { KeyOutlined, PlayCircleOutlined, ShoppingOutlined, ExclamationCircleOutlined, FileTextOutlined, HistoryOutlined } from '@ant-design/icons'
+import { KeyOutlined, PlayCircleOutlined, ShoppingOutlined, FileTextOutlined, HistoryOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import useTestStore from '@/stores/testStore'
 import { validateTestCode } from '@/utils/validation'
 import { determineRiskLevel, getRiskLevelColor } from '@/utils/scoring'
@@ -11,44 +11,17 @@ const { Title, Paragraph, Text } = Typography
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate()
-  const { validatedCode, setValidatedCode, reports, loadSecureReports } = useTestStore()
+  const { validatedCode, setValidatedCode, loadSecureReports } = useTestStore()
   const [testCode, setTestCode] = useState('')
   const [validating, setValidating] = useState(false)
   const [showReportModal, setShowReportModal] = useState(false)
+  const [showCodeModal, setShowCodeModal] = useState(false)
   const [historyReports, setHistoryReports] = useState<any[]>([])
-
-  // 检查设备限制
-  const checkDeviceLimit = async () => {
-    const { checkDeviceLimit } = useTestStore.getState()
-    const isLimited = await checkDeviceLimit()
-    if (isLimited) {
-      Modal.confirm({
-        title: '设备使用限制',
-        icon: <ExclamationCircleOutlined />,
-        content: '当前设备已达到测试次数限制。如需继续使用，请清除历史数据或联系客服。',
-        okText: '清除数据',
-        cancelText: '取消',
-        onOk: () => {
-          const { clearAllSecureData } = useTestStore.getState()
-          clearAllSecureData()
-          message.success('数据已清除，可以重新开始测试')
-        }
-      })
-      return true
-    }
-    return false
-  }
 
   // 处理测试码验证
   const handleValidateCode = async () => {
     if (!testCode.trim()) {
       message.warning('请输入测试码')
-      return
-    }
-
-    // 检查设备限制
-    const isLimited = await checkDeviceLimit()
-    if (isLimited) {
       return
     }
 
@@ -61,7 +34,7 @@ const HomePage: React.FC = () => {
         navigate('/test')
       }
     } catch (error) {
-      message.error('验证失败，请重试')
+      message.error(error instanceof Error ? error.message : '测试码不存在，请联系客服！')
     } finally {
       setValidating(false)
     }
@@ -111,7 +84,32 @@ const HomePage: React.FC = () => {
   const handleViewReport = (report: any) => {
     const { setCurrentReport } = useTestStore.getState()
     setCurrentReport(report)
+    setShowReportModal(false)
     navigate('/report')
+  }
+
+  // 删除报告
+  const handleDeleteReport = (report: any) => {
+    Modal.confirm({
+      title: '确认删除',
+      content: `确定要删除"${report.reportName}"报告吗？此操作不可恢复。`,
+      okText: '确认删除',
+      cancelText: '取消',
+      okType: 'danger',
+      onOk: async () => {
+        try {
+          const { deleteReport } = useTestStore.getState()
+          deleteReport(report.id)
+          message.success('报告删除成功')
+          
+          // 重新加载历史报告
+          const { reports: latestReports } = useTestStore.getState()
+          setHistoryReports(latestReports)
+        } catch (error) {
+          message.error('删除失败，请重试')
+        }
+      }
+    })
   }
 
   return (
@@ -119,7 +117,7 @@ const HomePage: React.FC = () => {
       <div className="home-background">
         <div className="home-content">
           {/* 主标题区域 */}
-          <Row justify="center" style={{ marginBottom: 60 }}>
+          <Row justify="center" style={{ marginBottom: 10 }}>
             <Col xs={24} md={20} lg={16}>
               <div className="hero-section">
                 <Title level={1} className="main-title">
@@ -138,7 +136,7 @@ const HomePage: React.FC = () => {
           </Row>
 
           {/* 测试流程简介 */}
-          <Row justify="center" style={{ marginBottom: 60 }}>
+          <Row justify="center" style={{ marginBottom: 10 }}>
             <Col xs={24} md={20} lg={16}>
               <div className="process-section">
                 <Title level={2} className="section-title">测试流程</Title>
@@ -176,57 +174,23 @@ const HomePage: React.FC = () => {
             </Col>
           </Row>
 
-          {/* 测试码验证区域 */}
-          <Row justify="center">
-            <Col xs={24} md={12} lg={8}>
-              <Card 
-                className="code-card"
-                title={
-                  <Space>
-                    <KeyOutlined />
-                    <span>测试码验证</span>
-                  </Space>
-                }
+          {/* 开始测试按钮 */}
+          <Row justify="center" style={{ marginBottom: 10 }}>
+            <Col xs={24} sm={12} md={8} style={{ textAlign: 'center' }}>
+              <Button
+                type="primary"
+                size="large"
+                icon={<PlayCircleOutlined />}
+                onClick={() => setShowCodeModal(true)}
+                style={{ padding: '12px 48px', fontSize: '18px' }}
               >
-                <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                  <Input
-                    size="large"
-                    placeholder="请输入您的测试码"
-                    value={testCode}
-                    onChange={(e) => setTestCode(e.target.value)}
-                    onPressEnter={handleValidateCode}
-                    prefix={<KeyOutlined />}
-                  />
-                  
-                  <Button
-                    type="primary"
-                    size="large"
-                    loading={validating}
-                    onClick={handleValidateCode}
-                    icon={<PlayCircleOutlined />}
-                    block
-                  >
-                    开始测试
-                  </Button>
-                  
-                  <div className="buy-section">
-                    <Text type="secondary">没有测试码？</Text>
-                    <Button 
-                      type="link" 
-                      onClick={handleBuyCode}
-                      icon={<ShoppingOutlined />}
-                      style={{ padding: 0, marginLeft: 8 }}
-                    >
-                      点击这里购买
-                    </Button>
-                  </div>
-                </Space>
-              </Card>
+                开始测试
+              </Button>
             </Col>
           </Row>
 
           {/* 特性说明 */}
-          <Row justify="center" style={{ marginTop: 80 }}>
+          <Row justify="center" style={{ marginTop: 20 }}>
             <Col xs={24} md={20} lg={16}>
               <div className="features-section">
                 <Title level={2} className="section-title">产品特性</Title>
@@ -303,6 +267,14 @@ const HomePage: React.FC = () => {
                     icon={<FileTextOutlined />}
                   >
                     查看详情
+                  </Button>,
+                  <Button 
+                    type="link" 
+                    danger
+                    onClick={() => handleDeleteReport(report)}
+                    icon={<DeleteOutlined />}
+                  >
+                    删除
                   </Button>
                 ]}
               >
@@ -331,6 +303,105 @@ const HomePage: React.FC = () => {
             )}
           />
         )}
+      </Modal>
+
+      {/* 测试码输入模态框 */}
+      <Modal
+        title={
+          <div style={{ textAlign: 'center', width: '100%' }}>
+            <Space>
+              <KeyOutlined />
+              <span>请输入授权码</span>
+            </Space>
+          </div>
+        }
+        open={showCodeModal}
+        onCancel={() => setShowCodeModal(false)}
+        footer={null}
+        width={400}
+        centered
+      >
+        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          <Input
+            size="large"
+            placeholder="请输入8位授权码"
+            value={testCode}
+            onChange={(e) => setTestCode(e.target.value)}
+            onPressEnter={handleValidateCode}
+            prefix={<KeyOutlined />}
+            maxLength={8}
+            style={{ marginBottom: '0px' }}
+          />
+          
+          <div style={{ marginBottom: '24px' }}>
+            <Text strong style={{ display: 'block', marginBottom: '12px' }}>
+              获取授权码
+            </Text>
+            <div style={{ fontSize: '14px', color: '#595959', marginBottom: '12px' }}>
+              测试授权码可以在以下平台获取:
+            </div>
+            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+              <Button
+                type="text"
+                onClick={() => {
+                  window.open('https://2.taobao.com', '_blank');
+                }}
+                block
+                className="xianyu-button"
+                style={{ 
+                  fontSize: '16px',
+                  padding: '10px'
+                }}
+              >
+                闲鱼店铺
+              </Button>
+              {/* <Button
+                type="primary"
+                onClick={() => {
+                  window.open('https://www.xiaohongshu.com', '_blank');
+                }}
+                block
+                style={{ 
+                  backgroundColor: '#ff0036', 
+                  borderColor: '#ff0036',
+                  fontSize: '16px',
+                  padding: '10px'
+                }}
+              >
+                小红书店铺
+              </Button> */}
+            </Space>
+          </div>
+          
+          <div style={{ fontSize: '14px', color: '#8c8c8c', marginBottom: '24px' }}>
+            <Text strong style={{ display: 'block', marginBottom: '8px', color: '#595959' }}>
+              <CheckCircleOutlined style={{ fontSize: '16px', marginRight: '4px' }} />
+              温馨提示:
+            </Text>
+            <ul style={{ paddingLeft: '20px', margin: 0 }}>
+              <li style={{ marginBottom: '4px' }}>授权码购买后立即可用，一码一测</li>
+              <li style={{ marginBottom: '4px' }}>测试结果保存在本地，可随时查看</li>
+            </ul>
+          </div>
+          
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button
+              type="default"
+              onClick={() => setShowCodeModal(false)}
+              style={{ flex: 1, marginRight: '8px' }}
+            >
+              取消
+            </Button>
+            <Button
+              type="primary"
+              loading={validating}
+              onClick={handleValidateCode}
+              style={{ flex: 2 }}
+            >
+              开始测试
+            </Button>
+          </div>
+        </Space>
       </Modal>
     </div>
   )

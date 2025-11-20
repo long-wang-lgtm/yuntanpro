@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Button, Steps, Form, Radio, Checkbox, Space, Typography, Progress, message, Modal } from 'antd'
-import { ArrowLeftOutlined, ArrowRightOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import useTestStore from '@/stores/testStore'
 import { baseInfoQuestions, dimensions, getAllQuestions } from '@/data/questions'
 import './Test.css'
@@ -96,28 +96,6 @@ const TestPage: React.FC = () => {
     }
   }
 
-  // 检查设备限制
-  const checkDeviceLimit = async () => {
-    const { checkDeviceLimit } = useTestStore.getState()
-    const isLimited = await checkDeviceLimit()
-    if (isLimited) {
-      Modal.confirm({
-        title: '设备使用限制',
-        icon: <ExclamationCircleOutlined />,
-        content: '当前设备已达到测试次数限制。如需继续使用，请清除历史数据或联系客服。',
-        okText: '清除数据',
-        cancelText: '取消',
-        onOk: () => {
-          const { clearAllSecureData } = useTestStore.getState()
-          clearAllSecureData()
-          message.success('数据已清除，可以重新开始测试')
-        }
-      })
-      return true
-    }
-    return false
-  }
-
   // 处理题目答案选择
   const handleQuestionAnswer = async (score: number) => {
     const currentQuestion = allQuestions[currentQuestionIndex]
@@ -130,12 +108,6 @@ const TestPage: React.FC = () => {
       if (latestIndex < allQuestions.length - 1) {
         nextQuestion()
       } else {
-        // 检查设备限制
-        const isLimited = await checkDeviceLimit()
-        if (isLimited) {
-          return
-        }
-        
         // 所有题目完成，生成报告
         const report = generateReport()
         const saveSuccess = await saveReport(report)

@@ -54,53 +54,9 @@ export const generateDeviceFingerprint = (): string => {
   return CryptoJS.SHA256(fingerprintString).toString()
 }
 
-/**
- * 检查设备是否已超过测试限制
- */
-export const checkDeviceLimit = (): boolean => {
-  const deviceFingerprint = generateDeviceFingerprint()
-  const storageKey = `device_limit_${deviceFingerprint}`
-  
-  const storedData = localStorage.getItem(storageKey)
-  if (!storedData) {
-    // 首次使用，设置限制
-    const limitData = {
-      testCount: 1,
-      firstTestTime: Date.now(),
-      lastTestTime: Date.now()
-    }
-    localStorage.setItem(storageKey, encryptData(limitData))
-    return false
-  }
-  
-  const decryptedData = decryptData<{
-    testCount: number
-    firstTestTime: number
-    lastTestTime: number
-  }>(storedData)
-  
-  if (!decryptedData) {
-    return false
-  }
-  
-  // 检查24小时内测试次数限制（例如最多3次）
-  const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000)
-  const isWithin24Hours = decryptedData.lastTestTime > twentyFourHoursAgo
-  
-  if (isWithin24Hours && decryptedData.testCount >= 3) {
-    return true // 超过限制
-  }
-  
-  // 更新测试记录
-  const updatedData = {
-    testCount: isWithin24Hours ? decryptedData.testCount + 1 : 1,
-    firstTestTime: isWithin24Hours ? decryptedData.firstTestTime : Date.now(),
-    lastTestTime: Date.now()
-  }
-  
-  localStorage.setItem(storageKey, encryptData(updatedData))
-  return false
-}
+
+
+
 
 /**
  * 安全存储测试报告
@@ -180,13 +136,7 @@ export const clearAllSecureData = (): void => {
     // 清除报告数据
     localStorage.removeItem('secure_test_reports')
     
-    // 清除设备限制数据
-    const keys = Object.keys(localStorage)
-    keys.forEach(key => {
-      if (key.startsWith('device_limit_')) {
-        localStorage.removeItem(key)
-      }
-    })
+
     
     // 清除其他可能的安全数据
     localStorage.removeItem('test_code_validation')

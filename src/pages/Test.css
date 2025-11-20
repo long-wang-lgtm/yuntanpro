@@ -1,6 +1,6 @@
 .test-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #2d3748 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
   padding: 40px 20px;
 }
 
@@ -11,10 +11,10 @@
 }
 
 .test-title {
-  color: #e8e6e3 !important;
+  color: #d6dbe4 !important;
   margin-bottom: 30px !important;
   font-size: 2.5rem !important;
-  background: linear-gradient(135deg, #e53e3e 0%, #fa8c16 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -26,11 +26,11 @@
 }
 
 .test-steps .ant-steps-item-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
 }
 
 .test-steps .ant-steps-item-description {
-  color: #a0aec0 !important;
+  color: #64748b !important;
 }
 
 .test-content {
@@ -38,12 +38,28 @@
   margin: 0 auto;
 }
 
+.test-content .ant-card.test-card,
 .test-card {
-  background: rgba(26, 31, 46, 0.9) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(229, 62, 62, 0.3) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
   border-radius: 16px !important;
   padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  color: #1e293b !important;
+}
+
+/* 确保卡片内部所有内容都使用浅色主题 */
+.test-card * {
+  color: inherit !important;
+}
+
+/* 覆盖antd的默认深色模式 */
+.ant-card-actions,
+.ant-card-head,
+.ant-card-body {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #1e293b !important;
 }
 
 .progress-section {
@@ -56,7 +72,7 @@
 }
 
 .question-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   text-align: center !important;
   margin-bottom: 32px !important;
   font-size: 1.3rem !important;
@@ -74,25 +90,77 @@
   min-height: 50px !important;
   padding: 12px 16px !important;
   border-radius: 8px !important;
-  border: 1px solid #4a5568 !important;
-  background: #2d3748 !important;
-  color: #e8e6e3 !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  color: #1e293b !important;
   transition: all 0.3s ease !important;
   text-align: center !important;
   white-space: normal !important;
   word-wrap: break-word !important;
 }
 
+/* 确保选项按钮在所有状态下都显示正确的浅色背景 */
+.test-card .option-button,
+.ant-btn.option-button {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+/* 移除页面可能存在的深色边框 */
+.test-content {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 确保测试卡片没有深色边框 */
+.test-content .ant-card {
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
 .option-button:hover {
-  border-color: #e53e3e !important;
+  border-color: #3b82f6 !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  background: #f8fafc !important;
 }
 
 .option-button.ant-btn-primary {
-  background: #e53e3e !important;
-  border-color: #e53e3e !important;
-  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+  background: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* 确保导航按钮也使用浅色主题 */
+.navigation-buttons .ant-btn:not(.ant-btn-primary) {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+.navigation-buttons .ant-btn:not(.ant-btn-primary):hover {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+/* 确保步骤指示器区域没有深色边框 */
+.test-steps {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* 移除所有可能的深色边框 */
+* {
+  box-shadow: none !important;
+}
+
+/* 特别处理选项按钮，确保高优先级覆盖 */
+:root {
+  --ant-btn-default-bg: #ffffff;
+  --ant-btn-default-border: #cbd5e1;
+  --ant-btn-default-color: #1e293b;
 }
 
 .navigation-buttons {
@@ -104,25 +172,25 @@
 
 /* 表单样式 */
 .test-card .ant-form-item-label > label {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
 }
 
 .test-card .ant-radio-wrapper,
 .test-card .ant-checkbox-wrapper {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   padding: 8px 0;
 }
 
 .test-card .ant-radio-inner,
 .test-card .ant-checkbox-inner {
-  background: #2d3748 !important;
-  border-color: #4a5568 !important;
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
 }
 
 .test-card .ant-radio-checked .ant-radio-inner,
 .test-card .ant-checkbox-checked .ant-checkbox-inner {
-  background: #e53e3e !important;
-  border-color: #e53e3e !important;
+  background: #3b82f6 !important;
+  border-color: #3b82f6 !important;
 }
 
 /* 响应式设计 */

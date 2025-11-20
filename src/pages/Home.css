@@ -1,13 +1,13 @@
 .home-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #2d3748 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
 }
 
 .home-background {
   min-height: 100vh;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(229, 62, 62, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(82, 196, 26, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
 }
 
 .home-content {
@@ -19,29 +19,29 @@
 /* 主标题区域 */
 .hero-section {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .main-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   font-size: 3.5rem !important;
   font-weight: 700 !important;
   margin-bottom: 16px !important;
-  background: linear-gradient(135deg, #e53e3e 0%, #fa8c16 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .subtitle {
-  color: #a0aec0 !important;
+  color: #64748b !important;
   font-size: 1.5rem !important;
   font-weight: 400 !important;
   margin-bottom: 24px !important;
 }
 
 .description {
-  color: #cbd5e0 !important;
+  color: #475569 !important;
   font-size: 1.1rem !important;
   line-height: 1.8 !important;
   max-width: 600px;
@@ -51,24 +51,24 @@
 /* 流程步骤 */
 .process-section {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 
 .section-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   text-align: center !important;
-  margin-bottom: 40px !important;
+  margin-bottom: 30px !important;
 }
 
 .process-step {
   text-align: center;
-  padding: 20px;
+  padding: 16px;
 }
 
 .step-number {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #e53e3e, #fa8c16);
+  background: linear-gradient(135deg, #3b82f6, #10b981);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -81,25 +81,26 @@
 
 /* 测试码卡片 */
 .code-card {
-  background: rgba(26, 31, 46, 0.8) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(229, 62, 62, 0.3) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
   border-radius: 16px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .code-card .ant-card-head {
-  border-bottom: 1px solid rgba(229, 62, 62, 0.3) !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
 }
 
 .code-card .ant-card-head-title {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
   font-size: 1.2rem !important;
 }
 
 .buy-section {
   text-align: center;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(59, 130, 246, 0.1);
 }
 
 /* 特性说明 */
@@ -109,7 +110,7 @@
 
 .feature-item {
   text-align: center;
-  padding: 20px;
+  padding: 16px;
 }
 
 .feature-icon {
@@ -118,18 +119,30 @@
 }
 
 .feature-item .ant-typography {
-  color: #e8e6e3 !important;
+  color: #1e293b !important;
 }
 
 .feature-item .ant-typography:last-child {
-  color: #a0aec0 !important;
+  color: #64748b !important;
   font-size: 0.9rem !important;
+}
+
+/* 闲鱼店铺按钮样式 */
+.xianyu-button {
+  border-color: #ff9800 !important;
+  color: #ff9800 !important;
+}
+
+.xianyu-button:hover {
+  border-color: #f57c00 !important;
+  color: #f57c00 !important;
+  background-color: rgba(255, 152, 0, 0.04) !important;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .home-content {
-    padding: 40px 16px;
+    padding: 40px 10px;
   }
   
   .main-title {
@@ -149,7 +162,7 @@
   
   .process-step {
     padding: 16px 8px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   
   .step-number {
@@ -159,15 +172,15 @@
   }
   
   .hero-section {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   }
   
   .process-section {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   }
   
   .features-section {
-    margin-top: 40px;
+    margin-top: 10px;
   }
   
   .feature-item {
