@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, Button, Input, message, Space, Typography, Row, Col, Modal, FloatButton, List, Tag } from 'antd'
+import { Button, Input, message, Space, Typography, Row, Col, Modal, FloatButton, List, Tag } from 'antd'
 import { KeyOutlined, PlayCircleOutlined, FileTextOutlined, HistoryOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import useTestStore from '@/stores/testStore'
 import { validateTestCode } from '@/utils/validation'
@@ -40,10 +40,7 @@ const HomePage: React.FC = () => {
     }
   }
 
-  // 跳转到购买页面
-  const handleBuyCode = () => {
-    window.open('https://2.taobao.com', '_blank')
-  }
+
 
   // 加载历史报告
   useEffect(() => {

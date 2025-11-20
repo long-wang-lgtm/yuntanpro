@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, Button, Typography, Progress, Tag, Space, Row, Col, Statistic, Divider, Alert, message, Modal, List } from 'antd'
-import { ArrowLeftOutlined, SafetyOutlined, DeleteOutlined, HistoryOutlined, FileTextOutlined } from '@ant-design/icons'
+import { Card, Button, Typography, Progress, Tag, Space, Row, Col, Statistic, Divider, Alert, message } from 'antd'
+import { ArrowLeftOutlined, SafetyOutlined } from '@ant-design/icons'
 import useTestStore from '@/stores/testStore'
 import { determineRiskLevel, getRiskLevelColor, getRiskLevelDescription, generateRiskAnalysis } from '@/utils/scoring'
 import './Report.css'
@@ -10,7 +10,7 @@ const { Title, Text, Paragraph } = Typography
 
 const ReportPage: React.FC = () => {
   const navigate = useNavigate()
-  const { currentReport, clearCurrentTest, loadSecureReports, clearAllSecureData } = useTestStore()
+  const { currentReport, clearCurrentTest } = useTestStore()
   const [riskAnalysis, setRiskAnalysis] = useState<{
     keyRisks: string[]
     behaviorPatterns: string[]
@@ -22,18 +22,7 @@ const ReportPage: React.FC = () => {
     suggestions: [],
     relationshipAdvice: []
   })
-  const [historyReports, setHistoryReports] = useState<any[]>([])
-
   useEffect(() => {
-    // 加载历史报告
-    const loadHistory = async () => {
-      await loadSecureReports()
-      // 从store的reports状态获取历史报告
-      const { reports } = useTestStore.getState()
-      setHistoryReports(reports)
-    }
-    loadHistory()
-
     if (!currentReport) {
       message.warning('没有找到测试报告，请先完成测试')
       navigate('/')
@@ -52,7 +41,7 @@ const ReportPage: React.FC = () => {
     clearCurrentTest()
     // 重新设置当前报告，确保报告不被清除
     setCurrentReport(currentReport)
-  }, [currentReport, navigate, loadSecureReports])
+  }, [currentReport, navigate])
 
   if (!currentReport) {
     return null
@@ -68,146 +57,9 @@ const ReportPage: React.FC = () => {
     navigate('/test')
   }
 
-  // 处理清除所有数据
-  const handleClearData = () => {
-    Modal.confirm({
-      title: '清除所有数据',
-      content: '此操作将删除所有历史测试报告，包括当前报告。确定要继续吗？',
-      okText: '确定',
-      cancelText: '取消',
-      onOk: async () => {
-        await clearAllSecureData()
-        message.success('所有数据已清除')
-        navigate('/')
-      }
-    })
-  }
 
-  // 删除报告
-  const handleDeleteReport = (report: any) => {
-    Modal.confirm({
-      title: '确认删除',
-      content: `确定要删除"${report.reportName}"报告吗？此操作不可恢复。`,
-      okText: '确认删除',
-      cancelText: '取消',
-      okType: 'danger',
-      onOk: async () => {
-        try {
-          const { deleteReport } = useTestStore.getState()
-          deleteReport(report.id)
-          message.success('报告删除成功')
-          
-          // 重新加载历史报告
-          const { reports: latestReports } = useTestStore.getState()
-          setHistoryReports(latestReports)
-        } catch (error) {
-          message.error('删除失败，请重试')
-        }
-      }
-    })
-  }
 
-  // 处理查看历史报告
-  const handleViewHistory = () => {
-    if (historyReports.length === 0) {
-      message.info('暂无历史报告')
-      return
-    }
-    
-    Modal.confirm({
-      title: (
-        <Space>
-          <HistoryOutlined />
-          <span>历史报告 ({historyReports.length})</span>
-        </Space>
-      ),
-      width: 600,
-      icon: null,
-      content: (
-        <div style={{ maxHeight: 400, overflow: 'auto' }}>
-          <List
-            dataSource={historyReports}
-            renderItem={(report) => (
-              <List.Item
-                actions={[
-                  <Button 
-                    type="link" 
-                    onClick={() => {
-                      Modal.destroyAll()
-                      const { setCurrentReport } = useTestStore.getState()
-                      setCurrentReport(report)
-                    }}
-                    icon={<FileTextOutlined />}
-                  >
-                    查看详情
-                  </Button>,
-                  <Button 
-                    type="link" 
-                    danger
-                    onClick={() => handleDeleteReport(report)}
-                    icon={<DeleteOutlined />}
-                  >
-                    删除
-                  </Button>
-                ]}
-              >
-                <List.Item.Meta
-                  avatar={<FileTextOutlined style={{ fontSize: 24, color: '#1890ff' }} />}
-                  title={
-                    <Space>
-                      <span>测试报告</span>
-                      <Tag color={getRiskLevelColor(determineRiskLevel(report.scores.overall))}>
-                        {determineRiskLevel(report.scores.overall)}
-                      </Tag>
-                    </Space>
-                  }
-                  description={
-                    <Space direction="vertical" size={0}>
-                      <Text type="secondary">
-                        综合评分: {report.scores.overall.toFixed(1)}分
-                      </Text>
-                      <Text type="secondary" style={{ fontSize: 12 }}>
-                        {new Date(report.createdAt).toLocaleString('zh-CN')}
-                      </Text>
-                    </Space>
-                  }
-                />
-              </List.Item>
-            )}
-          />
-        </div>
-      ),
-      okText: '关闭',
-      cancelButtonProps: { style: { display: 'none' } }
-    })
-  }
 
-  // 处理下载报告（模拟）
-  const handleDownload = () => {
-    message.info('报告下载功能开发中...')
-  }
-
-  // 处理分享（模拟）
-  const handleShare = () => {
-    message.info('分享功能开发中...')
-  }
-
-  // 更多操作菜单
-  const moreMenuItems = [
-    {
-      key: 'history',
-      icon: <HistoryOutlined />,
-      label: '查看历史报告',
-      onClick: handleViewHistory
-    },
-    {
-      key: 'clear',
-      icon: <DeleteOutlined />,
-      label: '清除所有数据',
-      danger: true,
-      onClick: handleClearData
-    }
-  ]
 
   // 渲染维度得分卡片
   const renderDimensionCard = (dimension: any) => (

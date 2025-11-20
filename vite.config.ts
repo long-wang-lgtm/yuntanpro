@@ -17,6 +17,18 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'esbuild'
-  }
+    minify: 'esbuild',
+    // Cloudflare Pages 部署优化
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          antd: ['antd'],
+          charts: ['recharts']
+        }
+      }
+    }
+  },
+  // 确保正确的MIME类型
+  base: '/'
 })
