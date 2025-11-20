@@ -4,4 +4,3 @@ node_modules
 Questions.yaml
 
 dist/
-wrangler.toml
