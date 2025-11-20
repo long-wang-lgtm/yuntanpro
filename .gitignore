@@ -4,3 +4,5 @@ node_modules
 Questions.yaml
 
 dist/
+
+warngler.toml
