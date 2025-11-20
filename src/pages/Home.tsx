@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Button, Input, message, Space, Typography, Row, Col, Modal, FloatButton, List, Tag } from 'antd'
-import { KeyOutlined, PlayCircleOutlined, ShoppingOutlined, FileTextOutlined, HistoryOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons'
+import { KeyOutlined, PlayCircleOutlined, FileTextOutlined, HistoryOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import useTestStore from '@/stores/testStore'
 import { validateTestCode } from '@/utils/validation'
 import { determineRiskLevel, getRiskLevelColor } from '@/utils/scoring'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, Button, Steps, Form, Radio, Checkbox, Space, Typography, Progress, message, Modal } from 'antd'
+import { Card, Button, Steps, Form, Radio, Checkbox, Space, Typography, Progress, message } from 'antd'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import useTestStore from '@/stores/testStore'
 import { baseInfoQuestions, dimensions, getAllQuestions } from '@/data/questions'
